@@ -1,93 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<title><?= APP_NAME ?> - <?= $judul ?></title>
-	<link href="<?= base_url('sb-admin-2/') ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="<?= base_url('sb-admin-2/') ?>/css/sb-admin-2.min.css" rel="stylesheet">
-	<link href="<?= base_url('sb-admin-2/') ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title><?= APP_NAME ?> - <?= $judul ?></title>
+  <?php partial('modern_css') ?>
 </head>
-
 <body id="page-top">
-	<div id="wrapper">
-	<?php partial('navbar', $aktif) ?>
-	<!-- Content Wrapper -->
-	<div id="content-wrapper" class="d-flex flex-column">
-		<div id="content">
-		<?php partial('topbar') ?>
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="clearfix">
-							<div class="float-left">
-								<h1 class="h3 mb-4 text-gray-800"><?= $judul ?></h1>
-							</div>
-							<!-- <div class="float-right">
-								<a href="" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Data</a>
-							</div> -->
-						</div>
-						<hr>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-6">
-						
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="card shadow">
-							<div class="card-header">
-								<h6 class="m-0 font-weight-bold text-primary">Ubah Data</h6>
-							</div>
-							<div class="card-body">
-								<form method="POST" action="<?= base_url('perjalanan/proses_ubah/' . $perjalanan->id) ?>">
-								  	<div class="form-group">
-										<label for="asal">Kota Asal</label>
-										<input type="text" value="<?= $perjalanan->asal ?>" class="form-control" name="asal" id="asal" autocomplete="off" required="required" placeholder="ketik">
-								  	</div>
-								  	<div class="form-group">
-										<label for="tujuan">Kota Tujuan</label>
-										<input type="text" value="<?= $perjalanan->tujuan ?>" class="form-control" name="tujuan" id="tujuan" autocomplete="off" required="required" placeholder="ketik">
-								  	</div>
-								  	<div class="form-group">
-										<label for="jarak">Jarak (dalam KM)</label>
-										<input type="number" value="<?= $perjalanan->jarak ?>" class="form-control" name="jarak" id="jarak" autocomplete="off" required="required" placeholder="ketik">
-								  	</div>
-								  	<div class="form-group">
-										<button type="submit" class="btn btn-sm btn-success" name="ubah"><i class="fa fa-pen"></i> Ubah</button>
-										<button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-times"></i> Batal</button>
-										<a href="<?= base_url('perjalanan') ?>" class="btn btn-sm btn-secondary"><i class="fa fa-reply"></i> Kembali</a>
-								  	</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<?php partial('footer') ?>
-	</div>
-	</div>
-
-	<a class="scroll-to-top rounded" href="#page-top">
-		<i class="fas fa-angle-up"></i>
-	</a>
-
-	<script src="<?= base_url('sb-admin-2/') ?>/vendor/jquery/jquery.min.js"></script>
-	<script src="<?= base_url('sb-admin-2/') ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="<?= base_url('sb-admin-2/') ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
-	<script src="<?= base_url('sb-admin-2/') ?>/js/sb-admin-2.min.js"></script>
-
-	<script src="<?= base_url('sb-admin-2/') ?>/vendor/datatables/jquery.dataTables.min.js"></script>
-  	<script src="<?= base_url('sb-admin-2/') ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-	<script src="<?= base_url('sb-admin-2/') ?>/js/demo/datatables-demo.js"></script>
+<div id="wrapper">
+  <?php partial('navbar', $aktif) ?>
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <?php partial('topbar') ?>
+      <div class="main-content">
+        <div class="page-header">
+          <div><h1>Ubah Rute Perjalanan</h1><p>Perbarui data rute</p></div>
+          <a href="<?= base_url('perjalanan') ?>" class="btn-mod btn-back-mod"><i class="fas fa-arrow-left"></i> Kembali</a>
+        </div>
+        <div style="max-width:480px;">
+          <div class="mod-card">
+            <div class="mod-card-header">
+              <div class="mod-card-title"><i class="fas fa-pen"></i> Edit Rute</div>
+            </div>
+            <div class="mod-card-body">
+              <form method="POST" action="<?= base_url('perjalanan/proses_ubah/'.$perjalanan->id) ?>">
+                <div class="form-group-mod">
+                  <label class="form-label-mod" for="asal">Kota Asal</label>
+                  <input type="text" name="asal" id="asal" class="form-input-mod" value="<?= htmlspecialchars($perjalanan->asal) ?>" required>
+                </div>
+                <div class="form-group-mod">
+                  <label class="form-label-mod" for="tujuan">Kota Tujuan</label>
+                  <input type="text" name="tujuan" id="tujuan" class="form-input-mod" value="<?= htmlspecialchars($perjalanan->tujuan) ?>" required>
+                </div>
+                <div class="form-group-mod">
+                  <label class="form-label-mod" for="jarak">Jarak (KM)</label>
+                  <input type="number" name="jarak" id="jarak" class="form-input-mod" value="<?= $perjalanan->jarak ?>" required min="1">
+                </div>
+                <div class="btn-actions">
+                  <button type="submit" name="ubah" class="btn-mod btn-success-mod"><i class="fas fa-check"></i> Simpan</button>
+                  <button type="reset" class="btn-mod btn-reset-mod"><i class="fas fa-times"></i> Reset</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php partial('footer') ?>
+  </div>
+</div>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<a class="scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+<?php partial('modern_js') ?>
 </body>
-
 </html>

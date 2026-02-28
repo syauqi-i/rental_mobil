@@ -1,178 +1,158 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<title><?= APP_NAME ?> - <?= $judul ?></title>
-	<link href="<?= base_url('sb-admin-2/') ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="<?= base_url('sb-admin-2/') ?>/css/sb-admin-2.min.css" rel="stylesheet">
-	<link href="<?= base_url('sb-admin-2/') ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title><?= APP_NAME ?> - <?= $judul ?></title>
+  <?php partial('modern_css') ?>
 </head>
-
 <body id="page-top">
-	<div id="wrapper">
-	<?php partial('navbar', $aktif) ?>
-	<!-- Content Wrapper -->
-	<div id="content-wrapper" class="d-flex flex-column">
-		<div id="content">
-		<?php partial('topbar') ?>
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="clearfix">
-							<div class="float-left">
-								<h1 class="h3 mb-4 text-gray-800"><?= $judul ?></h1>
-							</div>
-							<!-- <div class="float-right">
-								<a href="" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Data</a>
-							</div> -->
-						</div>
-						<hr>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-6">
-						
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-4">
-						<div class="card shadow">
-							<div class="card-header">
-								<h6 class="m-0 font-weight-bold text-primary">Tambah Data</h6>
-							</div>
-							<div class="card-body">
-								<form method="POST" action="<?= base_url('mobil/tambah') ?>" enctype="multipart/form-data">
-								  	<div class="form-group">
-										<label for="merk">Nama Merk</label>
-										<select name="id_merk" id="merk" class="form-control">
-											<?php while($merk = $data_merk->fetch_object()) : ?>
-												<option value="<?= $merk->id ?>"><?= $merk->merk ?></option>
-											<?php endwhile; ?>
-										</select>
-								  	</div>
-								  	<div class="form-group">
-								  		<label for="nama">Nama Mobil</label>
-								  		<input type="text" name="nama" id="nama" required="required" placeholder="ketik" autocomplete="off" class="form-control">
-								  	</div>
-								  	<div class="row">
-									  	<div class="form-group col-6">
-									  		<label for="warna">Warna Mobil</label>
-									  		<input type="text" name="warna" id="warna" required="required" placeholder="ketik" autocomplete="off" class="form-control">
-									  	</div>
-									  	<div class="form-group col-6">
-									  		<label for="jumlah_kursi">Jumlah Kursi</label>
-									  		<input type="number" name="jumlah_kursi" id="jumlah_kursi" required="required" placeholder="ketik" autocomplete="off" class="form-control">
-									  	</div>
-								  	</div>
-									<div class="row">
-									  	<div class="form-group col-6">
-									  		<label for="no_polisi">No Polisi</label>
-									  		<input type="text" name="no_polisi" id="no_polisi" required="required" placeholder="ketik" autocomplete="off" class="form-control">
-									  	</div>
-									  	<div class="form-group col-6">
-									  		<label for="tahun_beli">Tahun Beli</label>
-									  		<input type="number" name="tahun_beli" id="tahun_beli" required="required" placeholder="ketik" autocomplete="off" class="form-control">
-									  	</div>
-								  	</div>
-								  	<div class="form-group">
-								  		<label for="gambar">Gambar Mobil</label>
-								  		<input type="file" name="gambar" id="gambar" required="required" placeholder="ketik" autocomplete="off" class="form-control-file">
-								  	</div>
-								  	<div class="form-group">
-										<button type="submit" class="btn btn-sm btn-success" name="tambah"><i class="fa fa-plus"></i> Tambah</button>
-										<button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-times"></i> Batal</button>
-								  	</div>
-								</form>
-							</div>
-						</div>
-					</div>
+<div id="wrapper">
+  <?php partial('navbar', $aktif) ?>
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <?php partial('topbar') ?>
+      <div class="main-content">
 
-					<div class="col-sm-8">
-						<div class="card shadow">
-							<div class="card-header">
-								<h6 class="m-0 font-weight-bold text-primary">Daftar Mobil</h6>
-							</div>
-							<div class="card-body">
-								<?php if(checkSession('success')): ?>
-									<div class="alert alert-success alert-dismissible fade show" role="alert">
-							  			<?= getSession('success', true) ?>
-							  			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							    			<span aria-hidden="true">&times;</span>
-							  			</button>
-									</div>
-								<?php elseif(checkSession('error')): ?>
-									<div class="alert alert-danger alert-dismissible fade show" role="alert">
-							  			<?= getSession('error', true) ?>
-							  			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							    			<span aria-hidden="true">&times;</span>
-							  			</button>
-									</div>
-								<?php endif ?>
+        <div class="page-header">
+          <div>
+            <h1>Data Mobil</h1>
+            <p>Kelola data armada kendaraan rental</p>
+          </div>
+        </div>
 
-								<table class="table table-bordered" id="dataTable" cellspacing="0">
-	                  				<thead>
-	                    				<tr>
-	                    					<th>No</th>
-	                    					<th>Mobil</th>
-	                    					<th>Merk</th>
-	                    					<th>Kursi</th>
-	                    					<th>Aksi</th>
-	                    				</tr>
-	                 				</thead>
-	                  				<tfoot>
-	                    				<tr>
-	                    					<th>No</th>
-	                    					<th>Mobil</th>
-	                    					<th>Merk</th>
-	                    					<th>Kursi</th>
-	                    					<th>Aksi</th>
-	                    				</tr>
-	                  				</tfoot>
-	                 				<tbody>
-										<?php while($mobil = $data_mobil->fetch_object()) : ?>
-											<tr>
-												
-												<td><?= $no++ ?></td>
-												<td><?= $mobil->nama ?></td>
-												<td><?= $mobil->merk ?></td>
-												<td><?= $mobil->jumlah_kursi ?></td>
-												<td>
-													<a href="<?= base_url('mobil/ubah/' . $mobil->id) ?>" class="btn btn-sm btn-info"><i class="fa fa-pen"></i> Ubah</a>
-													<a href="<?= base_url('mobil/detail/' . $mobil->id) ?>" class="btn btn-sm btn-warning"><i class="fa fa-eye"></i> Detail</a>
-	                 								<a href="<?= base_url('mobil/hapus/' . $mobil->id) ?>" class="btn btn-sm btn-danger" onclick="return confirm('apakah anda yakin?')"><i class="fa fa-trash"></i> Hapus</a>
-												</td>
-											</tr>
-										<?php endwhile; ?>
-	                 				</tbody>
-              					</table>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+        <div class="content-grid">
 
-		<?php partial('footer') ?>
-	</div>
-	</div>
+          <!-- FORM TAMBAH -->
+          <div class="mod-card">
+            <div class="mod-card-header">
+              <div class="mod-card-title"><i class="fas fa-plus-circle"></i> Tambah Mobil</div>
+            </div>
+            <div class="mod-card-body">
+              <form method="POST" action="<?= base_url('mobil/tambah') ?>" enctype="multipart/form-data">
 
-	<a class="scroll-to-top rounded" href="#page-top">
-		<i class="fas fa-angle-up"></i>
-	</a>
+                <div class="form-group-mod">
+                  <label class="form-label-mod">Merk</label>
+                  <select name="id_merk" class="form-input-mod">
+                    <?php while($merk = $data_merk->fetch_object()): ?>
+                    <option value="<?= $merk->id ?>"><?= $merk->merk ?></option>
+                    <?php endwhile; ?>
+                  </select>
+                </div>
 
-	<script src="<?= base_url('sb-admin-2/') ?>/vendor/jquery/jquery.min.js"></script>
-	<script src="<?= base_url('sb-admin-2/') ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="<?= base_url('sb-admin-2/') ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
-	<script src="<?= base_url('sb-admin-2/') ?>/js/sb-admin-2.min.js"></script>
+                <div class="form-group-mod">
+                  <label class="form-label-mod" for="nama">Nama Mobil</label>
+                  <input type="text" name="nama" id="nama" class="form-input-mod" placeholder="Contoh: Avanza 2023" required autocomplete="off">
+                </div>
 
-	<script src="<?= base_url('sb-admin-2/') ?>/vendor/datatables/jquery.dataTables.min.js"></script>
-  	<script src="<?= base_url('sb-admin-2/') ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-	<script src="<?= base_url('sb-admin-2/') ?>/js/demo/datatables-demo.js"></script>
+                <div class="form-row-mod">
+                  <div class="form-group-mod">
+                    <label class="form-label-mod" for="warna">Warna</label>
+                    <input type="text" name="warna" id="warna" class="form-input-mod" placeholder="Contoh: Putih" required>
+                  </div>
+                  <div class="form-group-mod">
+                    <label class="form-label-mod" for="jumlah_kursi">Jumlah Kursi</label>
+                    <input type="number" name="jumlah_kursi" id="jumlah_kursi" class="form-input-mod" placeholder="7" required min="1">
+                  </div>
+                </div>
+
+                <div class="form-row-mod">
+                  <div class="form-group-mod">
+                    <label class="form-label-mod" for="no_polisi">No Polisi</label>
+                    <input type="text" name="no_polisi" id="no_polisi" class="form-input-mod" placeholder="B 1234 ABC" required>
+                  </div>
+                  <div class="form-group-mod">
+                    <label class="form-label-mod" for="tahun_beli">Tahun Beli</label>
+                    <input type="number" name="tahun_beli" id="tahun_beli" class="form-input-mod" placeholder="2023" required>
+                  </div>
+                </div>
+
+                <div class="form-group-mod">
+                  <label class="form-label-mod">Gambar Mobil</label>
+                  <label class="file-upload-mod" for="gambar">
+                    <i class="fas fa-image"></i>
+                    <span class="file-upload-label" id="file-label">Pilih gambar...</span>
+                    <input type="file" name="gambar" id="gambar" accept="image/*" required onchange="document.getElementById('file-label').textContent=this.files[0]?.name||'Pilih gambar...'">
+                  </label>
+                </div>
+
+                <div class="btn-actions">
+                  <button type="submit" name="tambah" class="btn-mod btn-success-mod">
+                    <i class="fas fa-plus"></i> Tambah
+                  </button>
+                  <button type="reset" class="btn-mod btn-reset-mod">
+                    <i class="fas fa-times"></i> Reset
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- TABEL -->
+          <div class="mod-card" style="animation-delay:.1s">
+            <div class="mod-card-header">
+              <div class="mod-card-title">
+                <i class="fas fa-list"></i> Daftar Mobil
+                <span class="count-badge"><?= $data_mobil->num_rows ?> unit</span>
+              </div>
+            </div>
+
+            <?php if(checkSession('success')): ?>
+            <div class="mod-alert mod-alert-success">
+              <i class="fas fa-check-circle"></i> <?= getSession('success', true) ?>
+              <button class="mod-alert-close" onclick="this.parentElement.remove()">&times;</button>
+            </div>
+            <?php elseif(checkSession('error')): ?>
+            <div class="mod-alert mod-alert-danger">
+              <i class="fas fa-exclamation-circle"></i> <?= getSession('error', true) ?>
+              <button class="mod-alert-close" onclick="this.parentElement.remove()">&times;</button>
+            </div>
+            <?php endif ?>
+
+            <div class="mod-card-body-flush">
+              <?php if($data_mobil->num_rows > 0): ?>
+              <table class="mod-table">
+                <thead>
+                  <tr>
+                    <th style="width:44px">#</th>
+                    <th>Nama Mobil</th>
+                    <th>Merk</th>
+                    <th style="width:70px">Kursi</th>
+                    <th style="text-align:center;width:160px">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php while($mobil = $data_mobil->fetch_object()): ?>
+                  <tr>
+                    <td><span class="row-num"><?= $no++ ?></span></td>
+                    <td style="font-weight:600;color:var(--text-dark)"><?= htmlspecialchars($mobil->nama) ?></td>
+                    <td><span class="badge-pill badge-blue"><i class="fas fa-tag" style="font-size:.65rem"></i><?= htmlspecialchars($mobil->merk) ?></span></td>
+                    <td><span class="badge-pill badge-slate"><i class="fas fa-chair" style="font-size:.65rem"></i><?= $mobil->jumlah_kursi ?></span></td>
+                    <td style="text-align:center">
+                      <div class="act-group">
+                        <a href="<?= base_url('mobil/ubah/'.$mobil->id) ?>" class="act-btn act-edit"><i class="fas fa-pen"></i> Ubah</a>
+                        <a href="<?= base_url('mobil/detail/'.$mobil->id) ?>" class="act-btn act-detail"><i class="fas fa-eye"></i> Detail</a>
+                        <a href="<?= base_url('mobil/hapus/'.$mobil->id) ?>" class="act-btn act-del" onclick="return confirm('Hapus mobil <?= htmlspecialchars($mobil->nama) ?>?')"><i class="fas fa-trash"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                  <?php endwhile; ?>
+                </tbody>
+              </table>
+              <?php else: ?>
+              <div class="empty-state"><i class="fas fa-car"></i><p>Belum ada data mobil.</p></div>
+              <?php endif ?>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <?php partial('footer') ?>
+  </div>
+</div>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<a class="scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+<?php partial('modern_js') ?>
 </body>
-
 </html>

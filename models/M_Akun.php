@@ -2,10 +2,11 @@
 
 class M_Akun extends Model {
 	public function lihat(){
-		$query = $this->get('tbl_akun', ['nama', 'username', 'id']);
+		$query = $this->get('tbl_akun', ['id', 'nama', 'username', 'foto']);
 		$query = $this->execute();
 		return $query;
 	}
+
 
 	public function tambah($data){
 		$query = $this->insert('tbl_akun', $data);

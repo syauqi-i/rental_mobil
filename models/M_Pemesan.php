@@ -2,10 +2,11 @@
 
 class M_Pemesan extends Model {
 	public function lihat(){
-		$query = $this->get('tbl_pemesan', ['nama', 'jenis_kelamin', 'id']);
+		$query = $this->get('tbl_pemesan', ['id', 'nama', 'jenis_kelamin', 'foto']);
 		$query = $this->execute();
 		return $query;
 	}
+
 
 	public function tambah($data){
 		$query = $this->insert('tbl_pemesan', $data);

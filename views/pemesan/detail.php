@@ -1,105 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<title><?= APP_NAME ?> - <?= $judul ?></title>
-	<link href="<?= base_url('sb-admin-2/') ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="<?= base_url('sb-admin-2/') ?>/css/sb-admin-2.min.css" rel="stylesheet">
-	<link href="<?= base_url('sb-admin-2/') ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title><?= APP_NAME ?> - <?= $judul ?></title>
+  <?php partial('modern_css') ?>
 </head>
-
 <body id="page-top">
-	<div id="wrapper">
-	<?php partial('navbar', $aktif) ?>
-	<!-- Content Wrapper -->
-	<div id="content-wrapper" class="d-flex flex-column">
-		<div id="content">
-		<?php partial('topbar') ?>
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="clearfix">
-							<div class="float-left">
-								<h1 class="h3 mb-4 text-gray-800"><?= $judul ?></h1>
-							</div>
-							<!-- <div class="float-right">
-								<a href="" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Data</a>
-							</div> -->
-						</div>
-						<hr>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-6">
-						
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6">
-						<div class="card shadow">
-							<div class="card-header">
-								<h6 class="m-0 font-weight-bold text-primary"><?= $judul ?> - <?= $pemesan->nama ?></h6>
-							</div>
-							<div class="card-body">
-								<div class="row">
-									<div class="col-md-4">
-										<img src="<?= base_url('uploads/' . $pemesan->foto) ?>" alt="<?= $pemesan->nama ?>" class="img-thumbnail mb-4">
-									</div>
-									<div class="col-md-8">
-										<table class="table table-borderless">
-											<tr>
-												<td>Nama</td>
-												<td>:</td>
-												<td><b><?= $pemesan->nama ?></b></td>
-											</tr>
-											<tr>
-												<td>Jenis Kelamin</td>
-												<td>:</td>
-												<td><b><?= $pemesan->jenis_kelamin == 'L' ? 'Laki laki' : 'Perempuan' ?></b></td>
-											</tr>
-											<tr>
-												<td>Alamat</td>
-												<td>:</td>
-												<td><b><?= $pemesan->alamat ?></b></td>
-											</tr>
-										</table>	
-									</div>				
-								</div>
-								<div class="row">
-									<div class="col">
-										<a href="<?= base_url('pemesan/ubah/' . $pemesan->id) ?>" class="btn btn-sm btn-info"><i class="fa fa-pen"></i> Ubah</a>
-         								<a href="<?= base_url('pemesan/hapus/' . $pemesan->id) ?>" class="btn btn-sm btn-danger" onclick="return confirm('apakah anda yakin?')"><i class="fa fa-trash"></i> Hapus</a>
-										<a href="<?= base_url('pemesan') ?>" class="btn btn-sm btn-secondary"><i class="fa fa-reply"></i> Kembali</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+<div id="wrapper">
+  <?php partial('navbar', $aktif) ?>
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <?php partial('topbar') ?>
+      <div class="main-content">
+        <div class="page-header">
+          <div><h1>Detail Pemesan</h1><p>Informasi lengkap pelanggan</p></div>
+          <div class="btn-actions">
+            <a href="<?= base_url('pemesan/ubah/'.$pemesan->id) ?>" class="btn-mod btn-primary-mod"><i class="fas fa-pen"></i> Ubah</a>
+            <a href="<?= base_url('pemesan/hapus/'.$pemesan->id) ?>" class="btn-mod btn-danger-mod" onclick="return confirm('Hapus pemesan ini?')"><i class="fas fa-trash"></i> Hapus</a>
+            <a href="<?= base_url('pemesan') ?>" class="btn-mod btn-back-mod"><i class="fas fa-arrow-left"></i> Kembali</a>
+          </div>
+        </div>
 
-		<?php partial('footer') ?>
-	</div>
-	</div>
+        <div style="display:grid;grid-template-columns:240px 1fr;gap:1.25rem;align-items:start;">
+          <div class="mod-card">
+            <div class="mod-card-body" style="text-align:center;padding:1.5rem;">
+              <img src="<?= base_url('uploads/'.$pemesan->foto) ?>" alt=""
+                   style="width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid var(--primary-light);box-shadow:0 4px 14px rgba(37,99,235,.14);">
+              <div style="margin-top:.8rem;font-weight:800;font-size:.95rem;color:var(--text-dark);"><?= htmlspecialchars($pemesan->nama) ?></div>
+              <?php if($pemesan->jenis_kelamin == 'L'): ?>
+              <span class="badge-pill badge-blue" style="margin-top:.4rem;"><i class="fas fa-mars"></i> Laki-laki</span>
+              <?php else: ?>
+              <span class="badge-pill badge-indigo" style="margin-top:.4rem;"><i class="fas fa-venus"></i> Perempuan</span>
+              <?php endif ?>
+            </div>
+          </div>
 
-	<a class="scroll-to-top rounded" href="#page-top">
-		<i class="fas fa-angle-up"></i>
-	</a>
-
-	<script src="<?= base_url('sb-admin-2/') ?>/vendor/jquery/jquery.min.js"></script>
-	<script src="<?= base_url('sb-admin-2/') ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="<?= base_url('sb-admin-2/') ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
-	<script src="<?= base_url('sb-admin-2/') ?>/js/sb-admin-2.min.js"></script>
-
-	<script src="<?= base_url('sb-admin-2/') ?>/vendor/datatables/jquery.dataTables.min.js"></script>
-  	<script src="<?= base_url('sb-admin-2/') ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-	<script src="<?= base_url('sb-admin-2/') ?>/js/demo/datatables-demo.js"></script>
+          <div class="mod-card">
+            <div class="mod-card-header">
+              <div class="mod-card-title"><i class="fas fa-user"></i> Informasi Pemesan</div>
+            </div>
+            <div>
+              <div class="detail-info-row"><span class="detail-info-key">Nama</span><span class="detail-info-val"><?= htmlspecialchars($pemesan->nama) ?></span></div>
+              <div class="detail-info-row"><span class="detail-info-key">Kelamin</span><span class="detail-info-val"><?= $pemesan->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' ?></span></div>
+              <div class="detail-info-row"><span class="detail-info-key">Alamat</span><span class="detail-info-val" style="white-space:pre-line;"><?= htmlspecialchars($pemesan->alamat) ?></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php partial('footer') ?>
+  </div>
+</div>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<a class="scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+<?php partial('modern_js') ?>
 </body>
-
 </html>
